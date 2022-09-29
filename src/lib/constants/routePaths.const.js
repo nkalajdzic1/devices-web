@@ -1,3 +1,4 @@
+// site route paths
 export const ROUTE_PATHS = {
   HOME: "/",
   DEVICES: "/devices",

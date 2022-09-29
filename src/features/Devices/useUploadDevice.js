@@ -4,6 +4,9 @@ import { useMutation, useQueryClient } from "react-query";
 
 import { API } from "lib/utils";
 
+/**
+ * @description custom hook used to upload a json file to server
+ */
 export const useUploadDevice = () => {
   const queryClient = useQueryClient();
 

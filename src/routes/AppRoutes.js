@@ -4,8 +4,10 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { LoadingPage, Page404 } from "lib/components";
 import { ROUTE_PATHS } from "lib/constants";
 
+// Devices won't be lazy loaded, it is the landing page - the most visited page
 import { Devices } from "features/Devices";
 
+// lazy load routes
 const DeviceInfo = lazy(() => import("features/Devices/DeviceInfo"));
 
 const ROUTES = {

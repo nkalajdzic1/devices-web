@@ -2,6 +2,12 @@ import { useState } from "react";
 
 import { SORT_ORDER } from "lib/constants";
 
+/**
+ * @description custom hook to handle paging, sorting and etc in a declarative way
+ * @param {Object} initialFilter initial values for the filters
+ * @param {function} resetData reset function called on sort change, etc.
+ * @returns state that is preserving the filters
+ */
 export const useQueryParams = (initialFilter, resetData) => {
   const [pageNumber, setPageNumber] = useState(1);
   const [pageSize, setPageSize] = useState(initialFilter.pageSize || 10);

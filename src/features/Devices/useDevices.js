@@ -4,6 +4,11 @@ import { toast } from "react-toastify";
 
 import { API, getQueryParams } from "lib/utils";
 
+/**
+ * @description custom hook used to fetch list of devices from the server
+ * @param {Object} params query params fort http method
+ * @param {Object} config additional configuration for react-query
+ */
 export const useDevices = (params, config) => {
   const {
     refetch: reloadDevices,

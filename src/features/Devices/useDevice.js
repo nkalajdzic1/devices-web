@@ -4,6 +4,11 @@ import { toast } from "react-toastify";
 
 import { API } from "lib/utils";
 
+/**
+ * @description custom hook used to fetch a device from the server
+ * @param {Number} id query params fort http method
+ * @param {Object} config additional configuration for react-query
+ */
 export const useDevice = (id, config) => {
   const {
     refetch: reloadDevices,

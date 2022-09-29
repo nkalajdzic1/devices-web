@@ -4,6 +4,9 @@ import { useMutation, useQueryClient } from "react-query";
 import { API } from "lib/utils";
 import { toast } from "react-toastify";
 
+/**
+ * @description custom hook used to delete a device from the server
+ */
 export const useDeleteDevice = () => {
   const queryClient = useQueryClient();
 

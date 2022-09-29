@@ -18,6 +18,7 @@ const Wrapper = styled.div`
   }
 `;
 
+// Input for files that is looking as a button
 export const InputFileButton = ({ id, label, inputProps, ...rest }) => {
   return (
     <Wrapper {...rest}>
