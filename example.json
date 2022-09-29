@@ -1,0 +1,15 @@
+{
+  "id": "1glmLrTZqf9YZleN",
+  "name": "S7-150009",
+  "deviceTypeId": "Beweis",
+  "failsafe": true,
+  "tempMin": 0,
+  "tempMax": 60,
+  "installationPosition": "horizontal",
+  "insertInto19InchCabinet": true,
+  "motionEnable": true,
+  "siplusCatalog": true,
+  "simaticCatalog": true,
+  "rotationAxisNumber": 0,
+  "positionAxisNumber": 0
+}

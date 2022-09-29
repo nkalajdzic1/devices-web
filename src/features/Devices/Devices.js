@@ -1,13 +1,15 @@
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-import { Button, If, Page } from "lib/components";
+import { Button, If, InputFileButton, Page } from "lib/components";
 import { H2, H5 } from "lib/components/typography";
 import { useQueryParams } from "lib/hooks";
 
 import { useDevices } from "./useDevices";
 import { DeviceCard } from "./DeviceCard";
 import { useDeleteDevice } from "./useDeleteDevice";
-import { toast } from "react-toastify";
+import { useUploadDevice } from "./useUploadDevice";
 
 const Wrapper = styled.div`
   display: flex;
@@ -18,7 +20,7 @@ const Wrapper = styled.div`
 
 const DeviceList = styled.div`
   width: 100%;
-  height: 600px;
+  min-height: 600px;
   max-width: 1000px;
 `;
 
@@ -29,6 +31,7 @@ const DevicesGrid = styled.div`
 `;
 
 const PageButtons = styled.div`
+  margin-top: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -38,7 +41,9 @@ const SiteNumber = styled(H5)`
   margin-inline: 20px;
 `;
 
-const Devices = () => {
+export const Devices = () => {
+  const navigate = useNavigate();
+
   const [{ pageNumber, pageSize, setPageNumber }, { order, orderBy }] =
     useQueryParams({
       orderBy: "modifiedAt",
@@ -53,6 +58,7 @@ const Devices = () => {
   });
 
   const { deleteDeviceAsync } = useDeleteDevice();
+  const { uploadDeviceAsync } = useUploadDevice();
 
   const nexPage = () => {
     setPageNumber((prevPage) => prevPage + 1);
@@ -65,6 +71,24 @@ const Devices = () => {
   const onDelete = async (id) => {
     await deleteDeviceAsync(id);
     toast.success("Gerät erfolgreich gelöscht");
+  };
+
+  const routeToDetails = (id) => navigate(`devices/${id}`);
+
+  const uploadFile = async (e) => {
+    if (!e.target.files[0]) return;
+
+    const files = Object.values(e.target.files);
+
+    e.target.value = "";
+
+    const file = files[0];
+    const formData = new FormData();
+    formData.append("File", file);
+
+    await uploadDeviceAsync(formData);
+
+    toast.success("Gerät erstellt");
   };
 
   return (
@@ -83,12 +107,18 @@ const Devices = () => {
                   key={`device-${i}`}
                   device={d}
                   onDelete={() => onDelete(d.id)}
+                  onClick={() => routeToDetails(d.id)}
                 />
               ))}
             </DevicesGrid>
           </If>
         </DeviceList>
-        <Button>Geräte hinzufügen</Button>
+        <InputFileButton
+          label="Geräte hinzufügen"
+          id="upload-device"
+          inputProps={{ type: "file", accept: ".json", onChange: uploadFile }}
+        />
+        {/* <Button>Geräte hinzufügen</Button> */}
       </Wrapper>
       <PageButtons>
         <Button onClick={previousPage} disabled={pageNumber === 1}>

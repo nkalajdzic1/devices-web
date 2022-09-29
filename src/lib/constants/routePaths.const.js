@@ -1,6 +1,6 @@
 export const ROUTE_PATHS = {
   HOME: "/",
   DEVICES: "/devices",
-  DEVICE_INFO: "/device/:id",
+  DEVICE_INFO: "/devices/:id",
   NOT_FOUND: "*",
 };

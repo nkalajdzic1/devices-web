@@ -1,3 +1,2 @@
 export * from "./Devices";
-
-export { default } from "./Devices";
+export * from "./DeviceInfo";

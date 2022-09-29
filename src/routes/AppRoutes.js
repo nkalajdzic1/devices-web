@@ -4,9 +4,9 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { LoadingPage, Page404 } from "lib/components";
 import { ROUTE_PATHS } from "lib/constants";
 
-import Devices from "features/Devices";
+import { Devices } from "features/Devices";
 
-const DeviceInfo = lazy(() => import("features/DeviceInfo"));
+const DeviceInfo = lazy(() => import("features/Devices/DeviceInfo"));
 
 const ROUTES = {
   HOME: {

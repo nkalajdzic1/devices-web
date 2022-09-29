@@ -1,29 +1,29 @@
 import { useEffect } from "react";
+import { toast } from "react-toastify";
 import { useMutation, useQueryClient } from "react-query";
 
 import { API } from "lib/utils";
-import { toast } from "react-toastify";
 
-export const useDeleteDevice = () => {
+export const useUploadDevice = () => {
   const queryClient = useQueryClient();
 
   const {
-    mutateAsync: deleteDeviceAsync,
+    mutateAsync: uploadDeviceAsync,
     isSuccess,
     isError,
     ...rest
   } = useMutation(
-    async (id) => {
+    async (body) => {
       const api = new API().getInstance();
-      const res = await api.delete(`devices/${id}`);
+      const res = await api.post(`devices/upload`, body);
       return res.data;
     },
     {
-      mutationKey: "delete-device",
+      mutationKey: "upload-file-device",
     }
   );
 
-  // refresh list after delete
+  // refresh list after create
   useEffect(() => {
     if (!isSuccess) return;
     queryClient.invalidateQueries("get-devices");
@@ -32,8 +32,8 @@ export const useDeleteDevice = () => {
   // display error from server if the error occurs
   useEffect(() => {
     if (!isError) return;
-    toast.error("Gerät konnte nicht gelöscht werden");
+    toast.error("Gerät konnte nicht gespeichert werden");
   }, [isError]);
 
-  return { ...rest, isSuccess, isError, deleteDeviceAsync };
+  return { ...rest, isSuccess, isError, uploadDeviceAsync };
 };

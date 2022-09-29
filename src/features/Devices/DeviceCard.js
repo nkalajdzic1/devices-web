@@ -15,6 +15,11 @@ const Wrapper = styled.div`
   flex-direction: column;
   gap: 5px;
   overflow: hidden;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.66;
+  }
 `;
 
 const StyledTrashIcon = styled(TrashIcon)`
@@ -22,6 +27,10 @@ const StyledTrashIcon = styled(TrashIcon)`
   top: 10px;
   right: 10px;
   cursor: pointer;
+
+  &:hover {
+    opacity: 0.3;
+  }
 `;
 
 const Tick = styled(TickIcon)`
@@ -40,12 +49,17 @@ const FailSafeWrapper = styled.div`
   justify-content: flex-start;
 `;
 
-export const DeviceCard = ({ device, onDelete }) => {
+export const DeviceCard = ({ device, onDelete, ...rest }) => {
   const FailSafeIcon = device?.failSafe ? Tick : Close;
 
+  const onDeleteEvent = (e) => {
+    e.stopPropagation();
+    onDelete(e);
+  };
+
   return (
-    <Wrapper>
-      <StyledTrashIcon onClick={onDelete} />
+    <Wrapper {...rest}>
+      <StyledTrashIcon onClick={onDeleteEvent} />
       <H5>{device?.name}</H5>
       <Label>{device?.deviceTypeId}</Label>
       <FailSafeWrapper>
